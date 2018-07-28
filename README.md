@@ -1,7 +1,7 @@
 docker-turnserver
 =================
 
-A Docker container with the Coturn STUN and TURN server (https://github.com/coturn/coturn)
+A Docker container with the Coturn STUN and TURN server (https://github.com/coturn/coturn <br/>
 Checkout branch self-signed-ssl-certificate for a configuration with an auto created self signed ssl certificate to allow TLS and DTLS.
 
 This is currently running v4.4.5.3.
