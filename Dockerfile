@@ -20,5 +20,12 @@ RUN gdebi -n /tmp/coturn*.deb
 RUN mkdir /etc/service/turnserver
 COPY turnserver.sh /etc/service/turnserver/run
 
+# Set NEO user for turn server
+RUN turnadmin --add-admin -u neo -p neo
+
+# Create certificate for turnserver administration
+RUN mkdir /certificates
+RUN openssl req -x509 -newkey rsa:2048 -keyout /certificates/turn_server_pkey.pem -out /certificates/turn_server_cert.pem -days 3001 -nodes
+
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

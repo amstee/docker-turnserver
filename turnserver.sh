@@ -41,4 +41,7 @@ then
     touch /tmp/turnserver.configured
 fi
 
+echo cert=/certificates/turn_server_cert.pem >> /etc/turnserver.conf
+echo pkey=/certificates/turn_server_pkey.pem >> /etc/turnserver.conf
+
 exec /usr/bin/turnserver --no-cli >>/var/log/turnserver.log 2>&1
