@@ -44,10 +44,8 @@ then
 
     if [ -z $REALM_NAME ]
     then
-        NAME="default.realm.com"
         echo "realm=default.realm.com" >> /etc/tunserver.conf
     else
-        NAME=$REALM_NAME
         echo realm=$REALM_NAME >> /etc/turnserver.conf
     fi
 
@@ -57,9 +55,4 @@ fi
 echo cert=/certificates/turn_server_cert.pem >> /etc/turnserver.conf
 echo pkey=/certificates/turn_server_pkey.pem >> /etc/turnserver.conf
 
-if [ -z $IS_UNDER_NAT ]
-then
-    exec /usr/bin/turnserver --no-cli -o -a -f -v -r NAME >>/var/log/turnserver.log 2>&1
-else
-    exec /usr/bin/turnserver --no-cli -o -a -f -v -X -r NAME >>/var/log/turnserver.log 2>&1
-fi
+exec /usr/bin/turnserver --no-cli -r "webrtc.neo.ovh" -a -f >>/var/log/turnserver.log 2>&1
