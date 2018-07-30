@@ -30,9 +30,9 @@ then
 
     if [ -z $DISABLE_TLS ]
     then
-            echo "#no-tls" >> /etc/turnserver.conf
+        echo "#no-tls" >> /etc/turnserver.conf
     else
-            echo no-tls >> /etc/turnserver.conf
+        echo no-tls >> /etc/turnserver.conf
     fi
 
     if [ -z $DISABLE_DTLS ]
@@ -42,10 +42,24 @@ then
         echo no-dtls >> /etc/turnserver.conf
     fi
 
+    if [ -z $REALM_NAME ]
+    then
+        NAME="default.realm.com"
+        echo "realm=default.realm.com" >> /etc/tunserver.conf
+    else
+        NAME=$REALM_NAME
+        echo realm=$REALM_NAME >> /etc/turnserver.conf
+    fi
+
     touch /tmp/turnserver.configured
 fi
 
 echo cert=/certificates/turn_server_cert.pem >> /etc/turnserver.conf
 echo pkey=/certificates/turn_server_pkey.pem >> /etc/turnserver.conf
 
-exec /usr/bin/turnserver --no-cli >>/var/log/turnserver.log 2>&1
+if [ -z $IS_UNDER_NAT]
+then
+    exec /usr/bin/turnserver --no-cli -o -a -f -v -r NAME >>/var/log/turnserver.log 2>&1
+else
+    exec /usr/bin/turnserver --no-cli -o -a -f -v -X -r NAME >>/var/log/turnserver.log 2>&1
+fi

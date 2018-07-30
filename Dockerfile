@@ -1,5 +1,5 @@
 FROM phusion/baseimage:0.9.18
-MAINTAINER Brian Prodoehl <bprodoehl@connectify.me>
+MAINTAINER Jeremy Barneron <jeremy.barneron@gmail.com>
 
 # Set correct environment variables.
 ENV HOME /root
@@ -21,7 +21,7 @@ RUN mkdir /etc/service/turnserver
 COPY turnserver.sh /etc/service/turnserver/run
 
 # Set NEO user for turn server
-RUN turnadmin --add-admin -u neo -p neo
+RUN turnadmin --add-admin -u admin -p admin -r webrtc.neo.ovh
 
 # Create certificate for turnserver administration
 RUN mkdir /certificates
