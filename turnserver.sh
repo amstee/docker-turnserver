@@ -57,7 +57,7 @@ fi
 echo cert=/certificates/turn_server_cert.pem >> /etc/turnserver.conf
 echo pkey=/certificates/turn_server_pkey.pem >> /etc/turnserver.conf
 
-if [ -z $IS_UNDER_NAT]
+if [ -z $IS_UNDER_NAT ]
 then
     exec /usr/bin/turnserver --no-cli -o -a -f -v -r NAME >>/var/log/turnserver.log 2>&1
 else
