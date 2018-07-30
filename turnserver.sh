@@ -55,4 +55,4 @@ fi
 echo cert=/certificates/turn_server_cert.pem >> /etc/turnserver.conf
 echo pkey=/certificates/turn_server_pkey.pem >> /etc/turnserver.conf
 
-exec /usr/bin/turnserver --no-cli -r "webrtc.neo.ovh" -a -f >>/var/log/turnserver.log 2>&1
+exec /usr/bin/turnserver --no-cli --use-auth-secret --static-auth-secret=neo_secret_EH89T7 -r "webrtc.neo.ovh" -a -f >>/var/log/turnserver.log 2>&1
