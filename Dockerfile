@@ -25,7 +25,8 @@ RUN turnadmin --add-admin -u admin -p admin -r webrtc.neo.ovh
 
 # Create certificate for turnserver administration
 RUN mkdir /certificates
-RUN openssl req -x509 -newkey rsa:2048 -keyout /certificates/turn_server_pkey.pem -out /certificates/turn_server_cert.pem -days 3001 -nodes
+COPY certificate_conf.cnf /certificates/conf.cnf
+RUN openssl req -x509 -config /certificates/conf.cnf -subj "/" -newkey rsa:2048 -keyout /certificates/turn_server_pkey.pem -out /certificates/turn_server_cert.pem -days 3001 -nodes
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
